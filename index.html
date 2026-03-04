@@ -74,8 +74,8 @@
     gap: 48px;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 40px 32px 60px;
-    align-items: center;
+    padding: 20px 32px 40px;
+    align-items: start;
     width: 100%;
   }
 
@@ -87,7 +87,7 @@
     font-size: clamp(2rem, 4vw, 2.85rem);
     line-height: 1.15;
     color: var(--pi-dark);
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     letter-spacing: -0.02em;
   }
 
@@ -95,7 +95,7 @@
     font-size: 1.05rem;
     line-height: 1.65;
     color: var(--gray-600);
-    margin-bottom: 28px;
+    margin-bottom: 20px;
   }
 
   /* Badges */
@@ -145,7 +145,7 @@
     background: var(--white);
     border: 1px solid var(--gray-100);
     border-radius: 16px;
-    padding: 44px 40px;
+    padding: 32px 32px;
     box-shadow: var(--shadow-lg);
     text-align: center;
     justify-self: center;
@@ -586,10 +586,7 @@
           Bias-Free
         </span>
       </div>
-      <div class="quote-block animate-in delay-3">
-        <div class="quote-text">"It changed my life."</div>
-        <div class="quote-attr">— PI Assessment Taker</div>
-      </div>
+
     </div>
 
     <div class="cta-panel animate-in delay-2">
@@ -662,11 +659,11 @@
       <div class="email-meta">
         <div class="email-meta-row">
           <span class="email-label">From:</span>
-          <span>The Predictive Index &lt;hello@predictiveindex.com&gt;</span>
+          <span>The Predictive Index &lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5d35383131321d2d2f3839343e29342b383433393825733e3230">[email&#160;protected]</a>&gt;</span>
         </div>
         <div class="email-meta-row">
           <span class="email-label">To:</span>
-          <span>you@company.com</span>
+          <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="87fee8f2c7e4e8eaf7e6e9fea9e4e8ea">[email&#160;protected]</a></span>
         </div>
         <div class="email-meta-row">
           <span class="email-label">Subject:</span>
@@ -694,7 +691,7 @@
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   function goTo(screen) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     const target = document.getElementById('screen-' + screen);
@@ -709,11 +706,4 @@
   }
 
   function copyLink() {
-    const btn = event.currentTarget;
-    const orig = btn.innerHTML;
-    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L6.5 10.5L4 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Link Copied!';
-    setTimeout(() => { btn.innerHTML = orig; }, 2000);
-  }
-</script>
-</body>
-</html>
+    const bt
