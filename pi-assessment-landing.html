@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PI Behavioral Assessment™ — Free</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pi-red: #E2243B;
+    --pi-purple: #3B1F6E;
+    --pi-dark: #1A1032;
+    --white: #FFFFFF;
+    --gray-50: #F8F7FA;
+    --gray-100: #EEEDF2;
+    --gray-400: #8C8A94;
+    --gray-600: #55525E;
+    --gray-800: #2E2B36;
+    --font-display: 'Montserrat', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(26,16,50,0.06);
+    --shadow-md: 0 8px 30px rgba(26,16,50,0.10);
+    --shadow-lg: 0 20px 60px rgba(26,16,50,0.14);
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--gray-800);
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── SCREEN MANAGEMENT ── */
+  .screen { display: none; min-height: 100vh; }
+  .screen.active { display: flex; }
+
+  /* ══════════════════════════════════════
+     SCREEN 1 — LANDING
+  ══════════════════════════════════════ */
+  .landing {
+    flex-direction: column;
+    background: var(--white);
+  }
+
+  /* Top bar */
+  .topbar {
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .topbar svg { flex-shrink: 0; }
+  .topbar-wordmark {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    color: var(--gray-800);
+  }
+
+  /* Hero */
+  .hero {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 32px 60px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .hero-content { max-width: 540px; }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2rem, 4vw, 2.85rem);
+    line-height: 1.15;
+    color: var(--pi-dark);
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-body {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--gray-600);
+    margin-bottom: 28px;
+  }
+
+  /* Badges */
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-100);
+    color: var(--gray-800);
+  }
+  .badge svg { flex-shrink: 0; }
+
+  /* Quote */
+  .quote-block {
+    border-left: 3px solid var(--pi-red);
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(226,36,59,0.03), rgba(59,31,110,0.03));
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+  .quote-text {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--pi-dark);
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+  .quote-attr {
+    font-size: 0.82rem;
+    color: var(--gray-400);
+  }
+
+  /* CTA Panel */
+  .cta-panel {
+    background: var(--white);
+    border: 1px solid var(--gray-100);
+    border-radius: 16px;
+    padding: 44px 40px;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    justify-self: center;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .cta-panel h2 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.65rem;
+    color: var(--pi-dark);
+    margin-bottom: 6px;
+  }
+  .cta-subtitle {
+    font-size: 0.88rem;
+    color: var(--gray-400);
+    margin-bottom: 32px;
+  }
+
+  /* Steps */
+  .steps {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 36px;
+  }
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .step-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-100);
+  }
+  .step-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gray-600);
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  /* Form fields */
+  .form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  .form-row-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .form-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--gray-100);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--gray-800);
+    background: var(--white);
+    transition: border-color 0.2s ease;
+    outline: none;
+  }
+  .form-input:focus {
+    border-color: var(--pi-purple);
+    box-shadow: 0 0 0 3px rgba(59,31,110,0.08);
+  }
+  .form-input::placeholder {
+    color: var(--gray-400);
+  }
+  .form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%238C8A94' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+  .form-select:invalid,
+  .form-select option[value=""][disabled] {
+    color: var(--gray-400);
+  }
+
+  /* CTA Button */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 16px 32px;
+    background: #EF3340;
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: var(--transition);
+    letter-spacing: 0.01em;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent);
+    opacity: 0;
+    transition: var(--transition);
+  }
+  .btn-primary:hover {
+    background: #D41E30;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(239,51,64,0.35);
+  }
+  .btn-primary:hover::after { opacity: 1; }
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-primary svg {
+    transition: transform 0.3s ease;
+  }
+  .btn-primary:hover svg {
+    transform: translateX(3px);
+  }
+
+  .cta-fine {
+    margin-top: 14px;
+    font-size: 0.75rem;
+    color: var(--gray-400);
+  }
+  .cta-fine a {
+    color: var(--pi-red);
+    text-decoration: none;
+  }
+
+  /* Decorative stripe */
+  .stripe {
+    display: none;
+  }
+
+  /* ══════════════════════════════════════
+     SCREEN 2 — ASSESSMENT PLACEHOLDER
+  ══════════════════════════════════════ */
+  .assessment-screen {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-50);
+    text-align: center;
+    padding: 32px;
+  }
+  .assessment-screen .placeholder-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    background: var(--white);
+    border: 2px dashed var(--gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+  }
+  .assessment-screen h2 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--pi-dark);
+    margin-bottom: 8px;
+  }
+  .assessment-screen p {
+    color: var(--gray-400);
+    margin-bottom: 36px;
+    font-size: 0.95rem;
+  }
+  .btn-next {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 36px;
+    background: var(--pi-purple);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .btn-next:hover {
+    background: var(--pi-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(59,31,110,0.3);
+  }
+  .btn-next svg { transition: transform 0.3s ease; }
+  .btn-next:hover svg { transform: translateX(3px); }
+
+  /* ══════════════════════════════════════
+     SCREEN 3 — RESULTS / PROFILE
+  ══════════════════════════════════════ */
+  .results-screen {
+    flex-direction: column;
+    background: var(--white);
+  }
+
+  /* Email mockup */
+  .email-backdrop {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: #E8E6ED;
+  }
+  .email-window {
+    width: 100%;
+    max-width: 560px;
+    background: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.15);
+    overflow: hidden;
+  }
+  .email-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #F2F1F4;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .email-dots { display: flex; gap: 6px; }
+  .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .dot-red { background: #EF4444; }
+  .dot-yellow { background: #F59E0B; }
+  .dot-green { background: #22C55E; }
+  .email-toolbar-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--gray-400);
+  }
+  .email-meta {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: 0.82rem;
+    color: var(--gray-600);
+  }
+  .email-meta-row {
+    margin-bottom: 4px;
+  }
+  .email-meta-row:last-child { margin-bottom: 0; }
+  .email-label {
+    display: inline-block;
+    width: 56px;
+    font-weight: 600;
+    color: var(--gray-400);
+    font-size: 0.78rem;
+  }
+  .email-body {
+    padding: 32px 28px 28px;
+  }
+  .email-logo-row {
+    margin-bottom: 20px;
+  }
+  .email-heading {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.45rem;
+    color: var(--pi-dark);
+    margin-bottom: 14px;
+  }
+  .email-text {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--gray-600);
+    margin-bottom: 14px;
+  }
+  .email-cta {
+    display: inline-block;
+    margin-top: 8px;
+    margin-bottom: 24px;
+    padding: 12px 28px;
+    background: #EF3340;
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 8px;
+  }
+  .email-divider {
+    border: none;
+    border-top: 1px solid var(--gray-100);
+    margin-bottom: 18px;
+  }
+  .email-footer-text {
+    font-size: 0.78rem;
+    color: var(--gray-400);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+  .email-footer-text.small { font-size: 0.72rem; }
+  .email-footer-text a {
+    color: var(--gray-400);
+    text-decoration: underline;
+  }
+  .btn-share {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+  }
+  .btn-share.primary {
+    background: var(--pi-purple);
+    color: var(--white);
+  }
+  .btn-share.primary:hover {
+    background: var(--pi-dark);
+    box-shadow: 0 4px 16px rgba(59,31,110,0.25);
+  }
+  .btn-share.secondary {
+    background: var(--gray-50);
+    color: var(--gray-800);
+    border: 1px solid var(--gray-100);
+  }
+  .btn-share.secondary:hover {
+    background: var(--gray-100);
+  }
+
+  /* ══════════════════════════════════════
+     ANIMATIONS
+  ══════════════════════════════════════ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-in {
+    animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+  }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.35s; }
+  .delay-4 { animation-delay: 0.5s; }
+
+  /* ══════════════════════════════════════
+     MOBILE
+  ══════════════════════════════════════ */
+  @media (max-width: 820px) {
+    .hero {
+      grid-template-columns: 1fr;
+      gap: 36px;
+      padding: 24px 20px 40px;
+    }
+    .hero-content { max-width: 100%; }
+    .cta-panel {
+      max-width: 100%;
+      padding: 32px 24px;
+    }
+    .steps { gap: 20px; }
+    .step-icon { width: 48px; height: 48px; border-radius: 12px; }
+    .topbar { padding: 16px 20px; }
+    .quote-block { padding: 14px 16px; }
+    .badges { gap: 8px; }
+    .form-row-2col { grid-template-columns: 1fr; }
+
+    .results-body { padding: 32px 20px 48px; }
+    .share-row { flex-direction: column; }
+  }
+
+  @media (max-width: 420px) {
+    .hero h1 { font-size: 1.75rem; }
+    .hero-body { font-size: 0.95rem; }
+    .cta-panel h2 { font-size: 1.35rem; }
+    .steps { gap: 14px; }
+    .step-icon { width: 44px; height: 44px; }
+    .step-label { font-size: 0.7rem; }
+    .badge { font-size: 0.72rem; padding: 5px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════ SCREEN 1: LANDING ═══════ -->
+<div id="screen-landing" class="screen landing active">
+  <div class="stripe"></div>
+  <div class="topbar">
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+      <circle cx="18" cy="18" r="18" fill="#E2243B"/>
+      <text x="18" y="24" text-anchor="middle" fill="white" font-family="'DM Sans',sans-serif" font-weight="800" font-size="18">PI</text>
+    </svg>
+    <div class="topbar-wordmark">The<br>Predictive<br>Index</div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-content">
+      <h1 class="animate-in">Add human context to every people decision.</h1>
+      <p class="hero-body animate-in delay-1">
+        Start with the PI Behavioral Assessment. In about 5 minutes, you'll get a clear read on work style and drives you can use with teams, hiring, and leadership.
+      </p>
+      <div class="badges animate-in delay-2">
+        <span class="badge">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 0L8.6 4.8H13.7L9.5 7.8L11.2 12.6L7 9.6L2.8 12.6L4.5 7.8L0.3 4.8H5.4L7 0Z" fill="#E2243B"/></svg>
+          EEOC Certified
+        </span>
+        <span class="badge">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#3B1F6E" stroke-width="1.5" fill="none"/><path d="M7 3V7.5L10 9" stroke="#3B1F6E" stroke-width="1.5" stroke-linecap="round"/></svg>
+          70 Years of Validity
+        </span>
+        <span class="badge">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M12 4L5.5 10.5L2 7" stroke="#0A8754" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Bias-Free
+        </span>
+      </div>
+      <div class="quote-block animate-in delay-3">
+        <div class="quote-text">"It changed my life."</div>
+        <div class="quote-attr">— PI Assessment Taker</div>
+      </div>
+    </div>
+
+    <div class="cta-panel animate-in delay-2">
+      <h2>Begin the assessment</h2>
+      <p class="cta-subtitle">[6 minutes average]</p>
+
+      <div class="form-fields">
+        <div class="form-row-2col">
+          <div class="form-group">
+            <input type="text" placeholder="First Name *" class="form-input">
+          </div>
+          <div class="form-group">
+            <input type="text" placeholder="Last Name *" class="form-input">
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="email" placeholder="Business Email *" class="form-input">
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="Company Name *" class="form-input">
+        </div>
+        <div class="form-group">
+          <select class="form-input form-select">
+            <option value="" disabled selected>Country *</option>
+            <option>United States</option>
+            <option>Canada</option>
+            <option>United Kingdom</option>
+            <option>Australia</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <p class="cta-fine" style="margin-bottom:18px;">By submitting your information, you agree to be subject to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</p>
+
+      <button class="btn-primary" onclick="goTo('assessment')">
+        Start the Assessment
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M10 5l4 4-4 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SCREEN 2: ASSESSMENT PLACEHOLDER ═══════ -->
+<div id="screen-assessment" class="screen assessment-screen">
+  <div class="placeholder-icon animate-in">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="6" y="4" width="20" height="24" rx="3" stroke="#3B1F6E" stroke-width="2"/><path d="M11 12h10M11 17h7M11 22h4" stroke="#3B1F6E" stroke-width="2" stroke-linecap="round"/></svg>
+  </div>
+  <h2 class="animate-in delay-1">User Takes the Assessment</h2>
+  <p class="animate-in delay-2">This is where the PI Behavioral Assessment would live.</p>
+  <button class="btn-next animate-in delay-3" onclick="goTo('results')">
+    Next: See Your Results
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
+<!-- ═══════ SCREEN 3: EMAIL MOCKUP ═══════ -->
+<div id="screen-results" class="screen results-screen">
+  <div class="email-backdrop">
+    <div class="email-window animate-in">
+      <!-- Email chrome -->
+      <div class="email-toolbar">
+        <div class="email-dots">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <span class="email-toolbar-label">Inbox</span>
+      </div>
+      <div class="email-meta">
+        <div class="email-meta-row">
+          <span class="email-label">From:</span>
+          <span>The Predictive Index &lt;hello@predictiveindex.com&gt;</span>
+        </div>
+        <div class="email-meta-row">
+          <span class="email-label">To:</span>
+          <span>you@company.com</span>
+        </div>
+        <div class="email-meta-row">
+          <span class="email-label">Subject:</span>
+          <span style="font-weight:600;">Your PI Results Are In — Hey, Persuader!</span>
+        </div>
+      </div>
+      <!-- Email body -->
+      <div class="email-body">
+        <div class="email-logo-row">
+          <svg width="32" height="32" viewBox="0 0 36 36" fill="none">
+            <circle cx="18" cy="18" r="18" fill="#E2243B"/>
+            <text x="18" y="24" text-anchor="middle" fill="white" font-family="'DM Sans',sans-serif" font-weight="800" font-size="16">PI</text>
+          </svg>
+        </div>
+        <h2 class="email-heading">Hey, Persuader!</h2>
+        <p class="email-text">You took the PI Behavioral Assessment at Transform — now you have the human context to bring to work.</p>
+        <p class="email-text">Your Reference Profile reveals your natural work style, drives, and how you collaborate best. Use it with your team, your manager, or your next hire.</p>
+        <a href="#" class="email-cta">View Your Full Profile →</a>
+        <hr class="email-divider">
+        <p class="email-footer-text">The Predictive Index · The science of understanding people since 1955.</p>
+        <p class="email-footer-text small">You're receiving this because you completed the PI Behavioral Assessment at Transform 2026.<br><a href="#">Unsubscribe</a></p>
+      </div>
+    </div>
+    <button class="btn-share secondary" style="margin-top:20px;" onclick="goTo('landing')">← Start Over</button>
+  </div>
+</div>
+
+<script>
+  function goTo(screen) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    const target = document.getElementById('screen-' + screen);
+    target.classList.add('active');
+    // Re-trigger animations
+    target.querySelectorAll('.animate-in').forEach(el => {
+      el.style.animation = 'none';
+      el.offsetHeight; // reflow
+      el.style.animation = '';
+    });
+    window.scrollTo(0, 0);
+  }
+
+  function copyLink() {
+    const btn = event.currentTarget;
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L6.5 10.5L4 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Link Copied!';
+    setTimeout(() => { btn.innerHTML = orig; }, 2000);
+  }
+</script>
+</body>
+</html>
