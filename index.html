@@ -616,39 +616,11 @@
       <h2>Begin the assessment</h2>
       <p class="cta-subtitle">[6 minutes average]</p>
 
-      <div class="form-fields">
-        <div class="form-row-2col">
-          <div class="form-group">
-            <input type="text" placeholder="First Name *" class="form-input">
-          </div>
-          <div class="form-group">
-            <input type="text" placeholder="Last Name *" class="form-input">
-          </div>
-        </div>
-        <div class="form-group">
-          <input type="email" placeholder="Business Email *" class="form-input">
-        </div>
-        <div class="form-group">
-          <input type="text" placeholder="Company Name *" class="form-input">
-        </div>
-        <div class="form-group">
-          <select class="form-input form-select">
-            <option value="" disabled selected>Country *</option>
-            <option>United States</option>
-            <option>Canada</option>
-            <option>United Kingdom</option>
-            <option>Australia</option>
-            <option>Other</option>
-          </select>
-        </div>
-      </div>
-
-      <p class="cta-fine" style="margin-bottom:18px;">By submitting your information, you agree to be subject to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</p>
-
       <button class="btn-primary" onclick="goTo('assessment')">
         Start the Assessment
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M10 5l4 4-4 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
+      <p class="cta-fine" style="margin-top:14px;">By continuing, you agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</p>
     </div>
   </div>
 </div>
@@ -682,11 +654,11 @@
       <div class="email-meta">
         <div class="email-meta-row">
           <span class="email-label">From:</span>
-          <span>The Predictive Index &lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5d35383131321d2d2f3839343e29342b383433393825733e3230">[email&#160;protected]</a>&gt;</span>
+          <span>The Predictive Index &lt;hello&#64;predictiveindex.com&gt;</span>
         </div>
         <div class="email-meta-row">
           <span class="email-label">To:</span>
-          <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="87fee8f2c7e4e8eaf7e6e9fea9e4e8ea">[email&#160;protected]</a></span>
+          <span>you&#64;company.com</span>
         </div>
         <div class="email-meta-row">
           <span class="email-label">Subject:</span>
@@ -714,19 +686,20 @@
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  function goTo(screen) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    const target = document.getElementById('screen-' + screen);
+<script>
+  window.goTo = function(screen) {
+    var screens = document.querySelectorAll('.screen');
+    for (var i = 0; i < screens.length; i++) { screens[i].classList.remove('active'); }
+    var target = document.getElementById('screen-' + screen);
     target.classList.add('active');
-    // Re-trigger animations
-    target.querySelectorAll('.animate-in').forEach(el => {
-      el.style.animation = 'none';
-      el.offsetHeight; // reflow
-      el.style.animation = '';
-    });
+    var els = target.querySelectorAll('.animate-in');
+    for (var j = 0; j < els.length; j++) {
+      els[j].style.animation = 'none';
+      els[j].offsetHeight;
+      els[j].style.animation = '';
+    }
     window.scrollTo(0, 0);
-  }
-
-  function copyLink() {
-    const bt
+  };
+</script>
+</body>
+</html>
